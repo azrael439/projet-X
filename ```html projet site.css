@@ -1,0 +1,1834 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OrientaIA - Ton guide d'orientation</title>
+
+    <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f8;
+            color: #263238;
+            line-height: 1.6;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: #172b4d;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar {
+            max-width: 1250px;
+            margin: auto;
+            padding: 15px 20px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+
+        /* =========================
+           LOGO
+        ========================= */
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: #42a5f5;
+        }
+
+
+        /* =========================
+           MENU
+        ========================= */
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .tab {
+            border: none;
+            background: transparent;
+            color: white;
+
+            padding: 11px 14px;
+            border-radius: 8px;
+
+            cursor: pointer;
+            transition: 0.3s;
+
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .tab:hover {
+            background: #2196f3;
+        }
+
+        .tab.active {
+            background: #2196f3;
+            font-weight: bold;
+        }
+
+        .ai-tab {
+            background: #6c4cff;
+        }
+
+        .ai-tab:hover {
+            background: #5838d4;
+        }
+
+
+        /* =========================
+           CONTENU PRINCIPAL
+        ========================= */
+
+        .content {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+
+            background: white;
+            border-radius: 20px;
+
+            min-height: 70vh;
+
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================
+           TITRES
+        ========================= */
+
+        h1,
+        h2,
+        h3 {
+            color: #172b4d;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.7;
+        }
+
+        .intro {
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 480px;
+
+            border-radius: 20px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 60px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(23, 43, 77, 0.95),
+                    rgba(23, 43, 77, 0.55)
+                ),
+                url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            color: white;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 55px;
+            line-height: 1.1;
+            margin: 20px 0;
+        }
+
+        .hero h1 span {
+            color: #42a5f5;
+        }
+
+        .hero p {
+            max-width: 650px;
+            font-size: 19px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.15);
+
+            padding: 10px 15px;
+
+            border-radius: 30px;
+
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .hero-btn {
+            margin-top: 30px;
+
+            border: none;
+
+            padding: 15px 25px;
+
+            border-radius: 30px;
+
+            background: #2196f3;
+            color: white;
+
+            font-weight: bold;
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           ACCUEIL
+        ========================= */
+
+        .welcome {
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        .welcome h2 {
+            margin-bottom: 15px;
+        }
+
+        .welcome p {
+            max-width: 800px;
+            margin: auto;
+        }
+
+
+        /* =========================
+           CARTES
+        ========================= */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 20px;
+
+            margin-top: 30px;
+        }
+
+        .card {
+            background: #f7f9fc;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            border: 1px solid #e5eaf0;
+
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .card ul {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+
+        .card li {
+            margin: 7px 0;
+        }
+
+
+        /* =========================
+           INFO BOX
+        ========================= */
+
+        .info-box {
+            margin-top: 30px;
+
+            padding: 25px;
+
+            border-left: 5px solid #2196f3;
+
+            background: #eef7ff;
+
+            border-radius: 10px;
+        }
+
+
+        /* =========================
+           CONSEILS
+        ========================= */
+
+        .tips {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 20px;
+
+            margin-top: 30px;
+        }
+
+        .tips div {
+            padding: 25px;
+
+            background: #f7f9fc;
+
+            border-radius: 15px;
+
+            border: 1px solid #e5eaf0;
+        }
+
+        .tips span {
+            display: inline-block;
+
+            background: #2196f3;
+            color: white;
+
+            padding: 8px 12px;
+
+            border-radius: 20px;
+
+            margin-bottom: 15px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           FAQ
+        ========================= */
+
+        .faq {
+            margin-top: 25px;
+        }
+
+        details {
+            background: #f7f9fc;
+
+            margin-bottom: 12px;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            border: 1px solid #e5eaf0;
+        }
+
+        summary {
+            font-weight: bold;
+        }
+
+        details p {
+            margin-top: 15px;
+        }
+
+
+        /* =========================
+           IA
+        ========================= */
+
+        .ai-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 25px;
+
+            background: #eef5ff;
+
+            border-radius: 15px;
+        }
+
+        .ai-icon {
+            font-size: 50px;
+        }
+
+
+        /* =========================
+           CHAT
+        ========================= */
+
+        #chat {
+            min-height: 350px;
+            max-height: 450px;
+
+            overflow-y: auto;
+
+            padding: 20px;
+
+            margin-top: 20px;
+
+            background: #f7f9fc;
+
+            border-radius: 15px;
+
+            border: 1px solid #e5eaf0;
+        }
+
+        .message {
+            padding: 15px 20px;
+
+            border-radius: 15px;
+
+            margin-bottom: 15px;
+
+            max-width: 80%;
+
+            line-height: 1.5;
+
+            word-wrap: break-word;
+        }
+
+        .ai-message {
+            background: #e3f2fd;
+            color: #263238;
+        }
+
+        .user-message {
+            background: #2196f3;
+            color: white;
+
+            margin-left: auto;
+        }
+
+
+        /* =========================
+           SUGGESTIONS
+        ========================= */
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin: 15px 0;
+        }
+
+        .suggestions button {
+            border: none;
+
+            padding: 10px 15px;
+
+            border-radius: 20px;
+
+            background: #e9eef5;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .suggestions button:hover {
+            background: #d5e5f7;
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           INPUT IA
+        ========================= */
+
+        .chat-input {
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+
+            padding: 15px;
+
+            border: 2px solid #dce3eb;
+
+            border-radius: 30px;
+
+            outline: none;
+
+            font-size: 16px;
+        }
+
+        .chat-input input:focus {
+            border-color: #2196f3;
+        }
+
+        .chat-input button {
+            border: none;
+
+            padding: 0 25px;
+
+            border-radius: 30px;
+
+            background: #2196f3;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: #1976d2;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #172b4d;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px;
+
+            margin-top: 40px;
+        }
+
+        footer .logo {
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            margin-top: 8px;
+        }
+
+
+        /* =========================
+           RESPONSIVE MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                flex-direction: column;
+            }
+
+            .tabs {
+                justify-content: center;
+            }
+
+            .tab {
+                padding: 9px 11px;
+                font-size: 13px;
+            }
+
+            .content {
+                margin: 15px;
+                padding: 12px;
+            }
+
+            .hero {
+                min-height: 430px;
+                padding: 35px 25px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .chat-input {
+                flex-direction: column;
+            }
+
+            .chat-input button {
+                padding: 14px;
+            }
+
+            .ai-header {
+                align-items: flex-start;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            h2 {
+                font-size: 27px;
+            }
+
+            .ai-header {
+                flex-direction: column;
+            }
+
+            .message {
+                max-width: 95%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span>Orienta</span>IA 🤖
+        </div>
+
+
+        <div class="tabs">
+
+            <button
+                class="tab active"
+                onclick="openTab(0)"
+            >
+                Accueil
+            </button>
+
+
+            <button
+                class="tab"
+                onclick="openTab(1)"
+            >
+                Les filières
+            </button>
+
+
+            <button
+                class="tab"
+                onclick="openTab(2)"
+            >
+                Ressources
+            </button>
+
+
+            <button
+                class="tab"
+                onclick="openTab(3)"
+            >
+                Conseils
+            </button>
+
+
+            <button
+                class="tab"
+                onclick="openTab(4)"
+            >
+                Orientation
+            </button>
+
+
+            <button
+                class="tab"
+                onclick="openTab(5)"
+            >
+                FAQ
+            </button>
+
+
+            <button
+                class="tab ai-tab"
+                onclick="openTab(6)"
+            >
+                🤖 IA
+            </button>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================
+     CONTENU
+========================= -->
+
+<main class="content">
+
+
+    <!-- =====================
+         ACCUEIL
+    ====================== -->
+
+    <section
+        id="tab0"
+        class="tab-content active"
+    >
+
+        <div class="hero">
+
+            <div>
+
+                <span class="badge">
+                    🎓 GUIDE D'ORIENTATION
+                </span>
+
+
+                <h1>
+                    Bienvenue sur<br>
+                    <span>OrientaIA</span>
+                </h1>
+
+
+                <p>
+                    Découvre les filières de ton lycée,
+                    explore les métiers et prépare ton avenir
+                    avec l'aide de notre assistant IA.
+                </p>
+
+
+                <button
+                    class="hero-btn"
+                    onclick="openTab(6)"
+                >
+                    🤖 Poser une question à l'IA
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="welcome">
+
+            <h2>
+                Ton avenir commence ici 🚀
+            </h2>
+
+
+            <p>
+                OrientaIA est un site créé par des élèves
+                de Terminale Pro CIEL pour aider les lycéens
+                à mieux comprendre les différentes filières
+                et leurs possibilités.
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🎓
+                </div>
+
+                <h3>
+                    Découvrir
+                </h3>
+
+                <p>
+                    Découvre les différentes filières
+                    proposées dans ton lycée.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    💼
+                </div>
+
+                <h3>
+                    Les métiers
+                </h3>
+
+                <p>
+                    Découvre les métiers et les secteurs
+                    professionnels liés aux différentes formations.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🤖
+                </div>
+
+                <h3>
+                    Assistant IA
+                </h3>
+
+                <p>
+                    Pose tes questions à notre assistant
+                    pour obtenir des informations.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         FILIERES
+    ====================== -->
+
+    <section
+        id="tab1"
+        class="tab-content"
+    >
+
+        <h2>
+            📚 Les filières
+        </h2>
+
+
+        <p class="intro">
+            Découvre les différentes formations et les domaines
+            qu'elles permettent d'explorer.
+        </p>
+
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <div class="icon">
+                    💻
+                </div>
+
+                <h3>
+                    Bac Pro CIEL
+                </h3>
+
+                <p>
+                    Cybersécurité, Informatique, Réseaux
+                    et Électronique.
+                </p>
+
+
+                <ul>
+
+                    <li>
+                        Cybersécurité
+                    </li>
+
+                    <li>
+                        Réseaux
+                    </li>
+
+                    <li>
+                        Programmation
+                    </li>
+
+                    <li>
+                        Électronique
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    Filières industrielles
+                </h3>
+
+                <p>
+                    Découvre les formations liées à
+                    l'industrie, la maintenance et la production.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    📊
+                </div>
+
+                <h3>
+                    Filières tertiaires
+                </h3>
+
+                <p>
+                    Découvre les formations liées au commerce,
+                    à la gestion et aux services.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+            <h3>
+                💻 Focus Bac Pro CIEL
+            </h3>
+
+
+            <p>
+                Le Bac Pro CIEL signifie
+                <strong>
+                    Cybersécurité, Informatique,
+                    Réseaux et Électronique
+                </strong>.
+            </p>
+
+
+            <br>
+
+
+            <p>
+                Cette formation permet de développer
+                des compétences dans les domaines du numérique,
+                des réseaux, de l'informatique et des systèmes
+                électroniques.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         RESSOURCES
+    ====================== -->
+
+    <section
+        id="tab2"
+        class="tab-content"
+    >
+
+        <h2>
+            📖 Cours & Ressources
+        </h2>
+
+
+        <p class="intro">
+            Retrouvez ici des ressources utiles pour vos études.
+        </p>
+
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <div class="icon">
+                    💻
+                </div>
+
+                <h3>
+                    Informatique
+                </h3>
+
+                <p>
+                    Ressources pour apprendre la programmation,
+                    les systèmes et les outils informatiques.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🌐
+                </div>
+
+                <h3>
+                    Réseaux
+                </h3>
+
+                <p>
+                    Ressources sur les réseaux informatiques,
+                    les protocoles et leur fonctionnement.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Cybersécurité
+                </h3>
+
+                <p>
+                    Découverte des principes de sécurité
+                    informatique.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         CONSEILS
+    ====================== -->
+
+    <section
+        id="tab3"
+        class="tab-content"
+    >
+
+        <h2>
+            💡 Conseils pour réussir
+        </h2>
+
+
+        <div class="tips">
+
+
+            <div>
+
+                <span>
+                    01
+                </span>
+
+                <h3>
+                    Sois régulier
+                </h3>
+
+                <p>
+                    Travaille régulièrement plutôt que
+                    d'attendre le dernier moment.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    02
+                </span>
+
+                <h3>
+                    Pose des questions
+                </h3>
+
+                <p>
+                    N'hésite pas à demander de l'aide
+                    lorsque quelque chose n'est pas clair.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    03
+                </span>
+
+                <h3>
+                    Pratique
+                </h3>
+
+                <p>
+                    Les travaux pratiques permettent
+                    de mieux comprendre les notions.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    04
+                </span>
+
+                <h3>
+                    Prépare ton avenir
+                </h3>
+
+                <p>
+                    Renseigne-toi progressivement sur les
+                    études et les métiers qui t'intéressent.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         ORIENTATION
+    ====================== -->
+
+    <section
+        id="tab4"
+        class="tab-content"
+    >
+
+        <h2>
+            🎓 Orientation
+        </h2>
+
+
+        <p class="intro">
+            Après un Bac Pro CIEL, plusieurs possibilités
+            peuvent être envisagées selon ton projet.
+        </p>
+
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🎓
+                </div>
+
+                <h3>
+                    BTS
+                </h3>
+
+                <p>
+                    Exemples de poursuites d'études :
+                </p>
+
+
+                <ul>
+
+                    <li>
+                        BTS CIEL
+                    </li>
+
+                    <li>
+                        BTS SIO
+                    </li>
+
+                    <li>
+                        Autres formations liées au numérique
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    🏫
+                </div>
+
+                <h3>
+                    Études supérieures
+                </h3>
+
+                <p>
+                    Selon le parcours et le projet de l'élève,
+                    d'autres formations peuvent être envisagées.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="icon">
+                    💼
+                </div>
+
+                <h3>
+                    Vie professionnelle
+                </h3>
+
+                <p>
+                    La formation peut également permettre
+                    d'explorer différents métiers techniques.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         FAQ
+    ====================== -->
+
+    <section
+        id="tab5"
+        class="tab-content"
+    >
+
+        <h2>
+            ❓ Questions fréquentes
+        </h2>
+
+
+        <div class="faq">
+
+
+            <details>
+
+                <summary>
+                    Que signifie CIEL ?
+                </summary>
+
+                <p>
+                    CIEL signifie Cybersécurité,
+                    Informatique, Réseaux et Électronique.
+                </p>
+
+            </details>
+
+
+            <details>
+
+                <summary>
+                    Peut-on continuer ses études après le Bac Pro ?
+                </summary>
+
+                <p>
+                    Oui. Plusieurs possibilités de poursuite
+                    d'études existent, notamment dans le domaine
+                    du numérique.
+                </p>
+
+            </details>
+
+
+            <details>
+
+                <summary>
+                    À quoi sert l'assistant IA ?
+                </summary>
+
+                <p>
+                    L'assistant permet de poser des questions
+                    concernant les filières, les études et
+                    l'orientation.
+                </p>
+
+            </details>
+
+
+            <details>
+
+                <summary>
+                    L'IA choisit-elle une filière à ma place ?
+                </summary>
+
+                <p>
+                    Non. L'assistant fournit des informations
+                    et des pistes de réflexion. Le choix
+                    d'orientation appartient à l'élève.
+                </p>
+
+            </details>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         IA
+    ====================== -->
+
+    <section
+        id="tab6"
+        class="tab-content"
+    >
+
+        <div class="ai-container">
+
+
+            <div class="ai-header">
+
+                <div class="ai-icon">
+                    🤖
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        Assistant OrientaIA
+                    </h2>
+
+                    <p>
+                        Pose-moi une question concernant
+                        ton orientation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div id="chat">
+
+                <div class="message ai-message">
+
+                    👋 Bonjour ! Je suis l'assistant OrientaIA.
+
+                    <br><br>
+
+                    Tu peux me poser une question sur les filières,
+                    les études ou les métiers.
+
+                </div>
+
+            </div>
+
+
+            <div class="suggestions">
+
+
+                <button
+                    onclick="questionRapide('Qu’est-ce que le Bac Pro CIEL ?')"
+                >
+                    💻 Bac Pro CIEL
+                </button>
+
+
+                <button
+                    onclick="questionRapide('Quels métiers peut-on faire après CIEL ?')"
+                >
+                    💼 Les métiers
+                </button>
+
+
+                <button
+                    onclick="questionRapide('Quelles études après CIEL ?')"
+                >
+                    🎓 Les études
+                </button>
+
+
+                <button
+                    onclick="questionRapide('Qu’est-ce que la cybersécurité ?')"
+                >
+                    🔐 Cybersécurité
+                </button>
+
+
+            </div>
+
+
+            <div class="chat-input">
+
+                <input
+                    type="text"
+                    id="question"
+                    placeholder="Écris ta question ici..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    onclick="envoyerQuestion()"
+                >
+                    Envoyer 🚀
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="logo">
+        <span>Orienta</span>IA 🤖
+    </div>
+
+    <p>
+        Projet réalisé en Terminale Pro CIEL
+    </p>
+
+    <p>
+        © 2026 OrientaIA
+    </p>
+
+</footer>
+
+
+<script>
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    function openTab(tabIndex) {
+
+        const tabs =
+            document.querySelectorAll(".tab");
+
+        const contents =
+            document.querySelectorAll(".tab-content");
+
+
+        tabs.forEach(function(tab) {
+            tab.classList.remove("active");
+        });
+
+
+        contents.forEach(function(content) {
+            content.classList.remove("active");
+        });
+
+
+        if (tabs[tabIndex]) {
+            tabs[tabIndex].classList.add("active");
+        }
+
+
+        const selectedContent =
+            document.getElementById("tab" + tabIndex);
+
+
+        if (selectedContent) {
+            selectedContent.classList.add("active");
+        }
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================
+       QUESTION RAPIDE
+    ========================= */
+
+    function questionRapide(question) {
+
+        const input =
+            document.getElementById("question");
+
+
+        input.value = question;
+
+
+        envoyerQuestion();
+
+    }
+
+
+    /* =========================
+       ENVOYER UNE QUESTION
+    ========================= */
+
+    function envoyerQuestion() {
+
+        const input =
+            document.getElementById("question");
+
+
+        const question =
+            input.value.trim();
+
+
+        if (question === "") {
+
+            return;
+
+        }
+
+
+        ajouterMessage(
+            question,
+            "user-message"
+        );
+
+
+        input.value = "";
+
+
+        const messageChargement =
+            ajouterMessage(
+                "🤔 Je réfléchis...",
+                "ai-message"
+            );
+
+
+        setTimeout(function() {
+
+            messageChargement.remove();
+
+
+            const reponse =
+                reponseLocaleIA(question);
+
+
+            ajouterMessage(
+                reponse,
+                "ai-message"
+            );
+
+        }, 500);
+
+    }
+
+
+    /* =========================
+       AJOUTER UN MESSAGE
+    ========================= */
+
+    function ajouterMessage(message, classe) {
+
+        const chat =
+            document.getElementById("chat");
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "message " + classe;
+
+
+        div.textContent =
+            message;
+
+
+        chat.appendChild(div);
+
+
+        chat.scrollTop =
+            chat.scrollHeight;
+
+
+        return div;
+
+    }
+
+
+    /* =========================
+       IA LOCALE
+    ========================= */
+
+    function reponseLocaleIA(question) {
+
+        const q =
+            question
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+
+
+        /* CIEL */
+
+        if (
+            q.includes("ciel") &&
+            (
+                q.includes("quoi") ||
+                q.includes("signifie") ||
+                q.includes("definition") ||
+                q.includes("c'est")
+            )
+        ) {
+
+            return "Le Bac Pro CIEL signifie Cybersécurité, Informatique, Réseaux et Électronique. Cette formation permet de découvrir plusieurs domaines du numérique et des systèmes électroniques.";
+
+        }
+
+
+        /* CYBERSECURITE */
+
+        if (
+            q.includes("cybersecurite") ||
+            q.includes("cyber")
+        ) {
+
+            return "La cybersécurité concerne notamment la protection des systèmes informatiques, des réseaux et des données contre différentes menaces.";
+
+        }
+
+
+        /* RESEAUX */
+
+        if (
+            q.includes("reseau") ||
+            q.includes("reseaux")
+        ) {
+
+            return "Les réseaux informatiques permettent à différents appareils de communiquer entre eux. En CIEL, tu peux notamment découvrir leur configuration, leur fonctionnement et leur administration.";
+
+        }
+
+
+        /* METIERS */
+
+        if (
+            q.includes("metier") ||
+            q.includes("metiers") ||
+            q.includes("travail")
+        ) {
+
+            return "Après une formation dans le domaine du numérique, tu peux explorer différents métiers liés à l'informatique, aux réseaux, à la cybersécurité ou à l'électronique. Les possibilités dépendent notamment de ton parcours et de tes études.";
+
+        }
+
+
+        /* ETUDES */
+
+        if (
+            q.includes("etude") ||
+            q.includes("etudes") ||
+            q.includes("bts") ||
+            q.includes("apres le bac")
+        ) {
+
+            return "Après un Bac Pro CIEL, plusieurs poursuites d'études peuvent être envisagées, notamment des BTS liés au numérique. Le choix dépend de ton projet, de tes résultats et des formations disponibles.";
+
+        }
+
+
+        /* INFORMATIQUE */
+
+        if (
+            q.includes("informatique") ||
+            q.includes("programmation") ||
+            q.includes("programmer")
+        ) {
+
+            return "L'informatique regroupe de nombreux domaines : programmation, systèmes, réseaux, bases de données et développement. La filière CIEL permet notamment de découvrir certains de ces domaines.";
+
+        }
+
+
+        /* ELECTRONIQUE */
+
+        if (
+            q.includes("electronique") ||
+            q.includes("iot") ||
+            q.includes("objet connecte")
+        ) {
+
+            return "L'électronique concerne les systèmes et composants électroniques. Le domaine des objets connectés, ou IoT, combine notamment électronique, informatique et communication réseau.";
+
+        }
+
+
+        /* ORIENTATION */
+
+        if (
+            q.includes("orientation") ||
+            q.includes("choisir") ||
+            q.includes("filiere") ||
+            q.includes("avenir")
+        ) {
+
+            return "Pour réfléchir à ton orientation, commence par identifier les matières et activités que tu apprécies. Ensuite, compare les contenus des formations, les poursuites d'études et les métiers associés. L'IA peut t'aider à obtenir des informations, mais elle ne choisit pas à ta place.";
+
+        }
+
+
+        /* SALUTATION */
+
+        if (
+            q.includes("bonjour") ||
+            q.includes("salut") ||
+            q.includes("hello")
+        ) {
+
+            return "Bonjour ! 👋 Je suis OrientaIA. Je peux t'aider à découvrir les filières, les métiers, les études et les domaines de la filière CIEL.";
+
+        }
+
+
+        /* REPONSE PAR DEFAUT */
+
+        return "Je peux t'aider à découvrir le Bac Pro CIEL, la cybersécurité, l'informatique, les réseaux, l'électronique, les métiers et les poursuites d'études. Essaie de préciser ta question.";
+
+    }
+
+
+    /* =========================
+       TOUCHE ENTREE
+    ========================= */
+
+    document
+        .getElementById("question")
+        .addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                envoyerQuestion();
+
+            }
+
+        });
+
+</script>
+
+
+</body>
+
+</html>
+```
+
+
